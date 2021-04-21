@@ -140,9 +140,7 @@ const Films = (props) => {
                           key={idx}
                           id={elem}
                           //onclick function to check if the clicked answer is correct
-                          onClick={(e) => {
-                            checkAnswer(e);
-                          }}
+                          onClick={(e) => checkAnswer(e)}
                           block
                           className="game-button orange outlineBtn"
                         >

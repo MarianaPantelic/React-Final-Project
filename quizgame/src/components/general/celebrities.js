@@ -70,6 +70,7 @@ const Celebrities = (props) => {
 
   //function to check if the clicked answer is correct, changing the style and adding sounds
   const checkAnswer = (e) => {
+    btnRef.current.className = "disabledBtn";
     let answer = e.currentTarget.id;
     console.log(answer);
     if (answer === props.data.data[index].correct_answer) {
@@ -144,7 +145,6 @@ const Celebrities = (props) => {
                             //onclick function to check if the clicked answer is correct
                             onClick={(e) => {
                               checkAnswer(e);
-                              btnRef.current.className = "disabledBtn";
                             }}
                             block
                             className="game-button orange outlineBtn"

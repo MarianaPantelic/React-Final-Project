@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,6 +11,8 @@ import click from "../../sounds/Mouse_Click_1-fesliyanstudios.com.mp3";
 const GeneralKnowledge = (props) => {
   //declaring the state for the index
   const [state, setState] = useState({ index: 0 });
+
+  let btnRef = useRef();
 
   console.log(props.data.data);
   console.log(props.data.status);
@@ -65,6 +67,7 @@ const GeneralKnowledge = (props) => {
 
   //function to check if the clicked answer is correct, changing the style and adding sounds
   const checkAnswer = (e) => {
+    btnRef.current.className = "disabledBtn";
     let answer = e.currentTarget.id;
     console.log(answer);
     if (answer === props.data.data[index].correct_answer) {
@@ -93,6 +96,7 @@ const GeneralKnowledge = (props) => {
   //function to go to the next question when the button is clicked
   const goToNext = () => {
     audioPlay();
+    btnRef.current.className = "";
     document.querySelectorAll("button").forEach((elem) => {
       elem.style.background =
         "repeating-linear-gradient( 45deg, #ffc800, #ffc800 5px, #ffc200 5px, #ffc200 10px)";
@@ -127,25 +131,27 @@ const GeneralKnowledge = (props) => {
                   <div className="guy guyGenKnowledge"></div>
                 </Col>
                 <Col lg={7} className="genContainer">
-                  {
-                    //map through the array and display the answers
-                    newAnswers.map((elem, idx) => (
-                      <button
-                        key={idx}
-                        id={elem}
-                        //onclick function to check if the clicked answer is correct
-                        onClick={(e) => checkAnswer(e)}
-                        block
-                        className="game-button orange outlineBtn"
-                      >
-                        <span
-                          className="text-center"
-                          dangerouslySetInnerHTML={{ __html: elem }}
-                        />
-                      </button>
-                    ))
-                  }
-                  {/* button to go to the next question */}
+                  <div ref={btnRef}>
+                    {
+                      //map through the array and display the answers
+                      newAnswers.map((elem, idx) => (
+                        <button
+                          key={idx}
+                          id={elem}
+                          //onclick function to check if the clicked answer is correct
+                          onClick={(e) => checkAnswer(e)}
+                          block
+                          className="game-button orange outlineBtn"
+                        >
+                          <span
+                            className="text-center"
+                            dangerouslySetInnerHTML={{ __html: elem }}
+                          />
+                        </button>
+                      ))
+                    }
+                    {/* button to go to the next question */}
+                  </div>
                   <Button onClick={goToNext} className="" id="nextBtn">
                     Next
                   </Button>

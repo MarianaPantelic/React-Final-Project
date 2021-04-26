@@ -154,9 +154,8 @@ const Celebrities = (props) => {
                           </button>
                         ))
                       }
-
-                      {/* button to go to the next question */}
                     </div>
+                    {/* button to go to the next question */}
                     <Button onClick={goToNext} id="nextBtn">
                       Next
                     </Button>
